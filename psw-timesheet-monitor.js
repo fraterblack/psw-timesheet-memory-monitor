@@ -1,4 +1,5 @@
 const { exec } = require("child_process");
+const fs = require('fs');
 
 const MEMORY_LIMIT = 8000;
 
@@ -26,8 +27,21 @@ function checkMemoryUsage() {
         console.log(`= Memória total usada: ${totalMemory.toFixed(2)} MB (Limite: ${MEMORY_LIMIT}MB)`);
 
         if (totalMemory > MEMORY_LIMIT && maxMemoryProcess) {
-            console.log(`[!] Reiniciando processo com maior consumo: ${maxMemoryProcess.name} ${maxMemoryProcess.pm_id}`);
             exec(`pm2 restart ${maxMemoryProcess.pm_id}`);
+
+            console.log(`[!] Reiniciando processo com maior consumo: ${maxMemoryProcess.name} ${maxMemoryProcess.pm_id}`);
+
+            try {
+                fs.appendFile('app.log', logMessage, (err) => {
+                    if (err) {
+                        console.error('Erro ao escrever no arquivo de log:', err);
+                    } else {
+                        console.log('Log gravado com sucesso!');
+                    }
+                });
+            } catch (err) {
+                console.log(`[!] Erro ao gravar log ${err.message}`);
+            }
         }
     });
 }
