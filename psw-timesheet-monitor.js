@@ -26,7 +26,7 @@ function checkMemoryUsage() {
         console.log(`= Memória total usada: ${totalMemory.toFixed(2)} MB (Limite: ${MEMORY_LIMIT}MB)`);
 
         if (totalMemory > MEMORY_LIMIT && maxMemoryProcess) {
-            console.log(`[!] Reiniciando processo com maior consumo: ${maxMemoryProcess.name}`);
+            console.log(`[!] Reiniciando processo com maior consumo: ${maxMemoryProcess.name} ${maxMemoryProcess.pm_id}`);
             exec(`pm2 restart ${maxMemoryProcess.pm_id}`);
         }
     });
