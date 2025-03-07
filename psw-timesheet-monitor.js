@@ -49,7 +49,7 @@ function checkMemoryUsage() {
         processesToMonitoring.forEach(processName => {
             console.log(`= [${processName}] Memória total usada: ${totalMemory[processName].toFixed(2)} MB (Limite: ${memoryLimit[processName]}MB)`);
 
-            if (totalMemory[processName] > processName_MEMORY_LIMIT && maxMemoryProcess[processName]) {
+            if (totalMemory[processName] > memoryLimit[processName] && maxMemoryProcess[processName]) {
                 exec(`pm2 restart ${maxMemoryProcess[processName].pm_id}`);
 
                 console.log(`[!] ${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].name} ${maxMemoryProcess[processName].pm_id}`);
