@@ -12,7 +12,7 @@ const memoryLimit = {
 };
 
 const memoryWarning = {
-    [PSW_TIMESHEET]: 2000,
+    [PSW_TIMESHEET]: 6000,
     [PSW_COLLECTOR]: 2000,
     [PSW_CORE]: 2000,
 };
@@ -71,9 +71,9 @@ function checkMemoryUsage() {
                     console.log(`[!!!] Erro ao gravar log ${err.message}`);
                 }
             } else if (totalMemory[processName] > memoryWarning[processName] && maxMemoryProcess[processName]) {
-                console.log(`[?] ${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória: ${maxMemoryProcess[processName].pm_id}`);
+                console.log(`[?] ${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória detectado. Processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`);
 
-                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória: ${maxMemoryProcess[processName].pm_id}`;
+                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória detectado. Processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`;
 
                 try {
                     fs.appendFile('app.log', logMessage, (err) => {
