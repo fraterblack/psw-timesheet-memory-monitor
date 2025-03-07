@@ -59,8 +59,8 @@ function checkMemoryUsage() {
                 exec(`pm2 restart ${maxMemoryProcess[processName].pm_id}`);
 
                 console.log(`[!] ${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`);
-                const logMessage = `${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`;
 
+                const logMessage = `${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}\n`;
                 try {
                     fs.appendFile('app.log', logMessage, (err) => {
                         if (err) {
@@ -73,8 +73,7 @@ function checkMemoryUsage() {
             } else if (totalMemory[processName] > memoryWarning[processName] && maxMemoryProcess[processName]) {
                 console.log(`[?] ${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória detectado. Processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`);
 
-                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória detectado. Processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`;
-
+                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória detectado. Processo com maior consumo: ${maxMemoryProcess[processName].pm_id}\n`;
                 try {
                     fs.appendFile('app.log', logMessage, (err) => {
                         if (err) {
@@ -90,3 +89,14 @@ function checkMemoryUsage() {
 }
 
 setInterval(checkMemoryUsage, 5000);
+
+const logMessage = `${(new Date()).toISOString()} - Monitor iniciado\n`;
+try {
+    fs.appendFile('app.log', logMessage, (err) => {
+        if (err) {
+            console.error('[!!!] Erro ao escrever no arquivo de log:', err);
+        }
+    });
+} catch (err) {
+    console.log(`[!!!] Erro ao gravar log ${err.message}`);
+}
