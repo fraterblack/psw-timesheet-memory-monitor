@@ -12,9 +12,9 @@ const memoryLimit = {
 };
 
 const memoryWarning = {
-    [PSW_TIMESHEET]: 6000,
+    [PSW_TIMESHEET]: 2000,
     [PSW_COLLECTOR]: 2000,
-    [PSW_CORE]: 150,
+    [PSW_CORE]: 2000,
 };
 
 function checkMemoryUsage() {
@@ -58,31 +58,27 @@ function checkMemoryUsage() {
             if (totalMemory[processName] > memoryLimit[processName] && maxMemoryProcess[processName]) {
                 exec(`pm2 restart ${maxMemoryProcess[processName].pm_id}`);
 
-                console.log(`[!] ${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].name} ${maxMemoryProcess[processName].pm_id}`);
-                const logMessage = `${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].name} ${maxMemoryProcess[processName].pm_id}`;
+                console.log(`[!] ${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`);
+                const logMessage = `${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`;
 
                 try {
                     fs.appendFile('app.log', logMessage, (err) => {
                         if (err) {
-                            console.error('Erro ao escrever no arquivo de log:', err);
-                        } else {
-                            console.log('Log gravado com sucesso!');
+                            console.error('[!!!] Erro ao escrever no arquivo de log:', err);
                         }
                     });
                 } catch (err) {
                     console.log(`[!!!] Erro ao gravar log ${err.message}`);
                 }
             } else if (totalMemory[processName] > memoryWarning[processName] && maxMemoryProcess[processName]) {
-                console.log(`[?] ${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória: ${maxMemoryProcess[processName].name} ${maxMemoryProcess[processName].pm_id}`);
+                console.log(`[?] ${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória: ${maxMemoryProcess[processName].pm_id}`);
 
-                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória: ${maxMemoryProcess[processName].name} ${maxMemoryProcess[processName].pm_id}`;
+                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo anormal de memória: ${maxMemoryProcess[processName].pm_id}`;
 
                 try {
                     fs.appendFile('app.log', logMessage, (err) => {
                         if (err) {
-                            console.error('Erro ao escrever no arquivo de log:', err);
-                        } else {
-                            console.log('Log gravado com sucesso!');
+                            console.error('[!!!] Erro ao escrever no arquivo de log:', err);
                         }
                     });
                 } catch (err) {
