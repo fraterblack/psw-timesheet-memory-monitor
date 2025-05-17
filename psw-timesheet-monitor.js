@@ -17,6 +17,8 @@ const memoryWarning = {
     [PSW_CORE]: 2000,
 };
 
+const version = '1.0.0';
+
 function checkMemoryUsage() {
     exec("pm2 jlist", (err, stdout) => {
         if (err) {
@@ -60,7 +62,8 @@ function checkMemoryUsage() {
 
                 console.log(`[!] ${(new Date()).toISOString()} - [${processName}] Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}`);
 
-                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo máximo mémoria atingido: ${totalMemory[processName]}. Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}\n`;
+                const logMessage = `${(new Date()).toISOString()} - [${processName}] Consumo máximo mémoria atingido: ${totalMemory[processName]}. `
+                    + `Reiniciando processo com maior consumo: ${maxMemoryProcess[processName].pm_id}\n`;
                 try {
                     fs.appendFile('app.log', logMessage, (err) => {
                         if (err) {
@@ -92,7 +95,7 @@ function checkMemoryUsage() {
 
 setInterval(checkMemoryUsage, 5000);
 
-const logMessage = `${(new Date()).toISOString()} - Monitor iniciado\n`;
+const logMessage = `${(new Date()).toISOString()} - Monitor iniciado ${version}\n`;
 try {
     fs.appendFile('app.log', logMessage, (err) => {
         if (err) {
