@@ -55,7 +55,7 @@ function checkMemoryUsage() {
         });
 
         processesToMonitoring.forEach(processName => {
-            console.log(`= [${processName}] Memória total usada: ${(totalMemory[processName] || '0').toFixed(2)} MB (Alerta: ${memoryWarning[processName]}MB, Limite: ${memoryLimit[processName]}MB)`);
+            console.log(`= [${processName}] Memória total usada: ${totalMemory[processName] || '0'} MB (Alerta: ${memoryWarning[processName]}MB, Limite: ${memoryLimit[processName]}MB)`);
 
             if (totalMemory[processName] > memoryLimit[processName] && maxMemoryProcess[processName]) {
                 exec(`pm2 restart ${maxMemoryProcess[processName].pm_id}`);
