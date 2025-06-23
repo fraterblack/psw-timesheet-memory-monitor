@@ -7,13 +7,13 @@ const PSW_CORE = 'psw-core';
 
 const memoryLimit = {
     [PSW_TIMESHEET]: 8000,
-    [PSW_COLLECTOR]: 4500,
+    [PSW_COLLECTOR]: 8000,
     [PSW_CORE]: 3000,
 };
 
 const memoryWarning = {
     [PSW_TIMESHEET]: 6000,
-    [PSW_COLLECTOR]: 3000,
+    [PSW_COLLECTOR]: 7000,
     [PSW_CORE]: 2000,
 };
 
