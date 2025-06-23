@@ -13,7 +13,7 @@ const memoryLimit = {
 
 const memoryWarning = {
     [PSW_TIMESHEET]: 6000,
-    [PSW_COLLECTOR]: 7000,
+    [PSW_COLLECTOR]: 6000,
     [PSW_CORE]: 2000,
 };
 
